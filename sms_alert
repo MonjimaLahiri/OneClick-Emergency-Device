@@ -1,0 +1,84 @@
+import fliclib
+# Import required libraries
+from twilio.rest import Client
+import time
+
+# Twilio credentials
+TWILIO_SID = "your_twilio_sid"  # Replace with Twilio SID
+TWILIO_AUTH_TOKEN = "your_auth_token"  # Replace with Twilio Auth Token
+TWILIO_PHONE_NUMBER = "+your_twilio_phone_number"  # Replace with  Twilio phone number
+TARGET_PHONE_NUMBER = "+recipient_phone_number"  # Replace with the recipient's phone number
+
+# Message content
+MESSAGE_BODY = "Alert! Emergency button was pressed!"
+
+# Initialize Twilio client
+twilio_client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
+
+# Function to send SMS using Twilio
+# This function creates a message and sends it to the specified phone number using Twilio API
+def send_sms():
+    try:
+        message = twilio_client.messages.create(
+            body=MESSAGE_BODY,
+            from_=TWILIO_PHONE_NUMBER,
+            to=TARGET_PHONE_NUMBER
+        )
+        print(f"SMS sent! SID: {message.sid}")
+    except Exception as e:
+        print(f"Failed to send SMS: {e}")
+
+# Flic 2 setup
+# This function is triggered when the Flic 2 button is clicked. It sends an SMS when the button is single-clicked.
+def on_button_single_click(channel, click_type, was_queued, time_diff):
+    if click_type == fliclib.ClickType.ButtonSingleClick:
+        print("Button single-clicked!")
+        send_sms()
+
+# Set up Flic 2 connection
+# This function sets up the Flic 2 button by connecting to the device, configuring it, and listening for button press events
+def setup_flic_connection():
+    try:
+        client = fliclib.FlicClient("localhost")
+        mac_address = "your_flic2_mac_address"  # Replace with your Flic 2 MAC address
+        print("Setting up button events...")
+        
+        client.get_info()
+        client.add_scan_wizard()
+        client.add_connection_channel(fliclib.ConnectionChannel(mac_address, on_button_single_click))
+        client.handle_events()
+    except Exception as e:
+        print(f"Error setting up Flic 2: {e}")
+
+# Main function to start the setup and connection
+# This function is executed when the script is run and starts the Flic 2 + Twilio integration
+if __name__ == "__main__":
+    print("Starting Flic 2 + Twilio integration...")
+    setup_flic_connection()
+
+# Example usage for testing (optional)
+# This function sends a test SMS to the recipient's phone number
+def send_sms(message):
+    try:
+        message = twilio_client.messages.create(
+            body=message,
+            from_=TWILIO_PHONE_NUMBER,
+            to=TARGET_PHONE_NUMBER
+        )
+        print(f"Message sent: {message.sid}")
+    except Exception as e:
+        print(f"Failed to send SMS: {e}")
+
+# Wait for button press or a trigger event
+# This function continuously waits for a button press and sends a test SMS when triggered
+def wait_for_button_press():
+    print("Waiting for button press...")
+    while True:
+        # Once the button is pressed (or input received), send the SMS
+        send_sms(message_body)
+        # add a delay to prevent immediate re-sending 
+        time.sleep(1)
+
+# Run the waiting function
+# This will start the waiting for button presses and send a test message when a press is detected
+wait_for_button_press()
