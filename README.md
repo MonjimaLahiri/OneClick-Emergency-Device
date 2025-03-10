@@ -23,19 +23,19 @@ Our future improvements may include developing a dedicated mobile app for remote
   - *Purpose:* Low power consumption
 
 ---
-
 ## Accuracy of Google Geolocation API
-<p align="left">
-  Accuracy of Google Geolocation API:
-  <br>
-  - **95%** falls within the green circle (10 meters from location)
-  <br>
-  - **50%** falls within **5 meters** of location
-</p>
 
-<p align="right">
-  <img src="path/to/image.png" alt="Geolocation Accuracy" width="300">
-</p>
+- **95%** falls within the green circle (10 meters from location)
+- **50%** falls within **5 meters** of location
+<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+  
+  <img src="https://github.com/MonjimaLahiri/OneClick-Emergency-Device/blob/main/graph.png?raw=true" alt="Geolocation Accuracy" width="400" height="300">
 
+  <img src="https://github.com/MonjimaLahiri/OneClick-Emergency-Device/blob/main/device.png?raw=true" alt="Final Product" width="400" height="300">
+
+</div>
+ 
+
+<br><br>
 *[Watch on Youtube](https://youtu.be/XYfmuQvPTuo)*  
 *Contributors: Monjima Lahiri, Nick Stark, Matthew Press, Darren Famisan, Gabriel Jimenez, Yahui Jiang, Ashley Olson*
